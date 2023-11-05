@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@ToString
 public class PersonEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

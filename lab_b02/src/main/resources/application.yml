@@ -8,8 +8,7 @@ spring.datasource:
   password: oscarVenturenixLab2023.
 spring.jpa:
   show-sql: true
-  hibernate.ddl-auto:
-    update
+  hibernate.ddl-auto: update
 spring.sql.init:
   mode: always # always
   platform: mysql

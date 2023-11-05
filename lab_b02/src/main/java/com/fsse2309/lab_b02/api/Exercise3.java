@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fsse2309.lab_b02.data.dto.Course.CourseDetailResponseDto;
 import com.fsse2309.lab_b02.data.dto.Course.CreateCourseRequestDto;
 import com.fsse2309.lab_b02.service.CourseService.CourseService;
-import com.fsse2309.lab_b02.service.PersonService.PersonService;
 
 @RestController
 @RequestMapping("/ex3")

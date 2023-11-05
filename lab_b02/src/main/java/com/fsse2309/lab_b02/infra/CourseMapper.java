@@ -47,19 +47,14 @@ public class CourseMapper {
   }
 
 
-  public static List<CourseDetailResponseDto> map(List<CourseEntity> list) {
-    List<CourseDetailResponseDto> response = new ArrayList<>();
-    for (CourseEntity courseEntity : list) {
-
-      CourseDetailResponseDto output = CourseDetailResponseDto.builder()//
-          .courseId(courseEntity.getCourseId())//
-          .courseName(courseEntity.getCourseName())//
-          .price(courseEntity.getPrice())//
-          // .teacher(modelMapper.map(list, CreatePersonResqDto.class))//
-          // .students(null)//
-          .build();
-      response.add(output);
-    }
-    return response;
+  public static CourseDetailResponseDto map2(CourseEntity entity) {
+    return CourseDetailResponseDto.builder()//
+        .courseId(entity.getCourseId())//
+        .courseName(entity.getCourseName())//
+        .price(entity.getPrice())//
+        // .teacher(modelMapper.map(list, CreatePersonResqDto.class))//
+        // .students(null)//
+        .build();
   }
 }
+

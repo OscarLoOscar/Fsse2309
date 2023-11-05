@@ -2,7 +2,6 @@ package com.fsse2309.lab_b02.service.CourseService.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,22 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public List<CourseDetailResponseDto> getAllCourses() {
-    return CourseMapper.map(courseRepository.findAll());
+    List<CourseDetailResponseDto> response = new ArrayList<>();
+    CourseDetailResponseDto courseDetail = new CourseDetailResponseDto();
+
+    PersonEntity teachEntity = new PersonEntity();
+    for (CourseEntity courseEntity : courseRepository.findAll()) {
+      for (PersonEntity personEntity : personService.getAllEntities()) {
+        if (courseEntity.getTeacherHkid().equals(personEntity.getHkid())) {
+          courseDetail = CourseMapper.map2(courseEntity);
+          teachEntity = personEntity;
+          courseDetail
+              .setTeacher(PeopleMapper.map(PeopleMapper.map(teachEntity)));
+          response.add(courseDetail);
+        }
+      }
+    }
+    return response;
   }
 
   @Override
@@ -108,6 +122,7 @@ public class CourseServiceImpl implements CourseService {
         }
         if (courseId.equals(courseEntity.getCourseId())
             && courseId.equals(personEntity.getCourseId())) {
+          log.info("Checking : " + reference.toString());
           studentsList.add(PeopleMapper.map(PeopleMapper.map(personEntity)));
           log.info("TEST : " + studentsList.toString());
           responseDto = CourseDetailResponseDto.builder()//
