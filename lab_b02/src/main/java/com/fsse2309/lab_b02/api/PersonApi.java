@@ -32,7 +32,7 @@ public class PersonApi {
 
 
   @PostMapping("/person")
-  @ResponseStatus(value = HttpStatus.OK)
+  @ResponseStatus(value = HttpStatus.CREATED)
   public PersonDetailRespDto createPerson(
       @RequestBody CreatePersonRequestDto createPersonRequestDto) {
     // CreatePersonData createPersonData =
