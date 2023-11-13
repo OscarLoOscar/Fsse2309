@@ -1,0 +1,17 @@
+spring.security.oauth2.resourceserver.jwt.issuer-uri: https://securetoken.google.com/oscar-venturenix-project
+
+# JDBC連接
+# Data Source Settings
+spring.datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/max
+  username: oscarlo
+  password: oscarVenturenixLab2023.
+  # driverClassName: 'org.h2.Driver'
+  # url: 'jdbc:h2:mem:jpademo'
+  # username: 'sa'
+  # password:
+spring.jpa:
+  show-sql: true
+  hibernate.ddl-auto:
+    update # create, create-drop, update, none, validate

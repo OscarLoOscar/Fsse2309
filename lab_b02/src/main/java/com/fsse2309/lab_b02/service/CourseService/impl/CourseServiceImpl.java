@@ -1,7 +1,11 @@
 package com.fsse2309.lab_b02.service.CourseService.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,10 @@ import com.fsse2309.lab_b02.data.dto.Course.CreateCourseRequestDto;
 import com.fsse2309.lab_b02.data.dto.Person.PersonDetailRespDto;
 import com.fsse2309.lab_b02.entity.CourseEntity;
 import com.fsse2309.lab_b02.entity.PersonEntity;
+import com.fsse2309.lab_b02.exception.CourseExistedException;
+import com.fsse2309.lab_b02.exception.CourseNotFoundException;
+import com.fsse2309.lab_b02.exception.InvalidPriceException;
+import com.fsse2309.lab_b02.exception.PersonNotFoundException;
 import com.fsse2309.lab_b02.infra.CourseMapper;
 import com.fsse2309.lab_b02.infra.PeopleMapper;
 import com.fsse2309.lab_b02.repository.CourseRepository;
@@ -34,50 +42,85 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public CourseDetailResponseDto createCourse(
       CreateCourseRequestDto courseRequestDto) {
-    CreateCourseData reateCourseData = CourseMapper.map(courseRequestDto);
-    courseRepository.save(CourseMapper.map(reateCourseData));
-    return CourseDetailResponseDto.builder()//
-        .courseId(courseRequestDto.getCourseId())//
-        .courseName(courseRequestDto.getCourseName())//
-        .price(courseRequestDto.getPrice())//
-        .build();
+    try {
+      if (isCourseExisted(courseRequestDto.getCourseId())) {
+        throw new CourseNotFoundException();
+      }
+      if (isPriceValid(BigDecimal.valueOf(courseRequestDto.getPrice()))) {
+        throw new InvalidPriceException();
+      }
+
+      CreateCourseData reateCourseData = CourseMapper.map(courseRequestDto);
+      PersonEntity teacher = personService
+          .getPersonEntityByHkid(courseRequestDto.getTeacherHkid()).get();
+      CourseEntity course = CourseMapper.map(reateCourseData);
+      course.setTeacher(teacher);
+      courseRepository.save(course);
+
+      return CourseDetailResponseDto.builder()//
+          .courseId(courseRequestDto.getCourseId())//
+          .courseName(courseRequestDto.getCourseName())//
+          .price(courseRequestDto.getPrice())//
+          .build();
+    } catch (PersonNotFoundException e) {
+      log.info("Create Course : Teacher Not found");
+      throw e;
+    } catch (CourseExistedException e) {
+      log.info("Create Course : Course existed");
+      throw e;
+    } catch (InvalidPriceException e) {
+      log.info("Create Course : Invalid price");
+      throw e;
+
+    }
   }
 
   @Override
   public List<CourseDetailResponseDto> getAllCourses() {
     List<CourseDetailResponseDto> response = new ArrayList<>();
-    CourseDetailResponseDto courseDetail = new CourseDetailResponseDto();
-
-    PersonEntity teachEntity = new PersonEntity();
     for (CourseEntity courseEntity : courseRepository.findAll()) {
-      for (PersonEntity personEntity : personService.getAllEntities()) {
-        if (courseEntity.getTeacherHkid().equals(personEntity.getHkid())) {
-          courseDetail = CourseMapper.map2(courseEntity);
-          teachEntity = personEntity;
-          courseDetail
-              .setTeacher(PeopleMapper.map(PeopleMapper.map(teachEntity)));
-          response.add(courseDetail);
+      CourseDetailResponseDto courseDetail = CourseMapper.map2(courseEntity);
+
+      // get teacher
+      PersonDetailRespDto teacherDetail =
+          PeopleMapper.map(PeopleMapper.map(courseEntity.getTeacher()));
+      courseDetail.setTeacher(teacherDetail);
+      // get students
+      List<PersonDetailRespDto> studentsDetail = new ArrayList<>();
+      for (PersonEntity student : courseEntity.getStudents()) {
+        PersonDetailRespDto studentDetail =
+            PeopleMapper.map(PeopleMapper.map(student));
+
+        // 检查是否已经包含该学生
+        if (!studentsDetail.contains(studentDetail)) {
+          studentsDetail.add(studentDetail);
         }
       }
+
+      courseDetail.setStudents(studentsDetail);
+      response.add(courseDetail);
     }
+
     return response;
   }
 
   @Override
   public CourseDetailResponseDto updateCourse(
       CreateCourseRequestDto courseRequestDto) {
-    CourseDetailData courseDetailData = new CourseDetailData();
-    for (CourseEntity entity : courseRepository.findAll()) {
-      if (courseRequestDto.getCourseId().equals(entity.getCourseId())) {
-        entity.setCourseName(courseRequestDto.getCourseName());
-        entity.setPrice(courseRequestDto.getPrice());
-        entity.setTeacherHkid(courseRequestDto.getTeacherHkid());
-        // entity.setCourseId(courseRequestDto.getCourseId());
-      }
-      courseRepository.save(entity);
-      courseDetailData = CourseMapper.map(entity);
+    Optional<CourseEntity> course =
+        courseRepository.findByCourseId(courseRequestDto.getCourseId());
+    if (course.isPresent()) {
+      course.get().setCourseName(courseRequestDto.getCourseName());
+      course.get().setPrice(courseRequestDto.getPrice());
+      // find teacher
+      PersonEntity teacher = personService
+          .getPersonEntityByHkid(courseRequestDto.getTeacherHkid()).get();
+      course.get().setTeacher(teacher);
+      courseRepository.save(course.get());
+      return CourseMapper.map2(course.get());
+    } else {
+      throw new CourseNotFoundException();
     }
-    return CourseMapper.map(courseDetailData);
   }
 
   @Override
@@ -91,53 +134,59 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public void addStudent(String courseId, String hkid) {
-    PersonEntity addedPerson = personService.getPersonEntityByHkid(hkid);
-    if (hkid.equals(addedPerson.getHkid())) {
-      addedPerson.setCourseId(courseId);
-    }
-    personService.save(addedPerson);
+    // find course
+    CourseEntity course = courseRepository.findByCourseId(courseId).get();
+    // find student
+    PersonEntity student = personService.getPersonEntityByHkid(hkid).get();
+
+    course.getStudents().add(student);
+    courseRepository.save(course);
   }
 
 
   @Override
   public void removeStudent(String courseId, String hkid) {
-    PersonEntity deletePerson = personService.getPersonEntityByHkid(hkid);
-    if (hkid.equals(deletePerson.getHkid())) {
-      // personService.delete(hkid);
-      deletePerson.setCourseId(null);
+    // find course
+    Optional<CourseEntity> course = courseRepository.findByCourseId(courseId);
+    if (course.isPresent()) {
+      // find student
+      PersonEntity student = personService.getPersonEntityByHkid(hkid).get();
+
+      course.get().getStudents().remove(student);
+      courseRepository.save(course.get());
+    } else {
+      throw new CourseNotFoundException();
     }
-    personService.save(deletePerson);
   }
 
   @Override
-  public CourseDetailResponseDto getCourses(String courseId) {
-    CourseDetailResponseDto responseDto = new CourseDetailResponseDto();
-    List<PersonDetailRespDto> studentsList = new ArrayList<>();
-    PersonEntity reference = new PersonEntity();
-    for (CourseEntity courseEntity : courseRepository.findAll()) {
-      for (PersonEntity personEntity : personService.getAllEntities()) {
-        if (courseId.equals(courseEntity.getCourseId())
-            && courseEntity.getTeacherHkid().equals(personEntity.getHkid())) {
-          reference = personEntity;
-        }
-        if (courseId.equals(courseEntity.getCourseId())
-            && courseId.equals(personEntity.getCourseId())) {
-          log.info("Checking : " + reference.toString());
-          studentsList.add(PeopleMapper.map(PeopleMapper.map(personEntity)));
-          log.info("TEST : " + studentsList.toString());
-          responseDto = CourseDetailResponseDto.builder()//
-              .courseId(courseEntity.getCourseId())//
-              .courseName(courseEntity.getCourseName())//
-              .price(courseEntity.getPrice())//
-              // .teacher(modelMapper.map(PeopleMapper.map(personEntity),
-              // PersonDetailRespDto.class))//
-              .teacher(PeopleMapper.map(PeopleMapper.map(reference)))//
-              .students(studentsList)//
-              .build();
-          log.info("TEST 2 : " + responseDto.toString());
-        }
-      }
+  public CourseDetailResponseDto getCoursesByCourseId(String courseId) {
+    try {
+      List<CourseDetailResponseDto> courseList = this.getAllCourses();
+      return courseList.stream()//
+          .filter(e -> e.getCourseId().equals(courseId))//
+          .findFirst()//
+          .orElseThrow(() -> {
+            log.error("Course not found for courseId : " + courseId);
+            return new CourseNotFoundException(
+                "Course not found for courseId : " + courseId);
+          });
+    } catch (CourseNotFoundException e) {
+      log.info("Course Not exist");
+      throw e;
     }
-    return responseDto;
+
+  }
+
+  public boolean isCourseExisted(String courseId) {
+    if (courseRepository.findByCourseId(courseId).isPresent()) {
+      return true;
+    } else {
+      throw new CourseNotFoundException();
+    }
+  }
+
+  public boolean isPriceValid(BigDecimal price) {
+    return price.compareTo(BigDecimal.ZERO) < 0;
   }
 }

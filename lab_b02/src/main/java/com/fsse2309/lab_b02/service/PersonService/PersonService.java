@@ -1,6 +1,7 @@
 package com.fsse2309.lab_b02.service.PersonService;
 
 import java.util.List;
+import java.util.Optional;
 import com.fsse2309.lab_b02.data.domainObject.Person.CreatePersonData;
 import com.fsse2309.lab_b02.data.domainObject.Person.CreatedPersonData;
 import com.fsse2309.lab_b02.data.dto.Person.CreatePersonRequestDto;
@@ -21,9 +22,9 @@ public interface PersonService {
 
   public String delete(String hkid);
 
-  public PersonEntity getPersonEntityByHkid(String hkid);
+  public Optional<PersonEntity> getPersonEntityByHkid(String hkid);
 
-  public PersonEntity getPersonEntityByCourseId(String courseId);
+  public Optional<PersonEntity> getPersonEntityByCourseId(String courseId);
 
   public void save(PersonEntity addedPerson);
 }

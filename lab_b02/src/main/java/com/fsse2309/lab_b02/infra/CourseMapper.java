@@ -1,7 +1,5 @@
 package com.fsse2309.lab_b02.infra;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.fsse2309.lab_b02.data.domainObject.Course.CourseDetailData;
 import com.fsse2309.lab_b02.data.domainObject.Course.CreateCourseData;
 import com.fsse2309.lab_b02.data.dto.Course.CourseDetailResponseDto;
@@ -25,7 +23,7 @@ public class CourseMapper {
         .courseId(createCourseData.getCourseId())//
         .courseName(createCourseData.getCourseName())//
         .price(createCourseData.getPrice())//
-        .teacherHkid(createCourseData.getTeacherHkid())//
+      //  .teacher(createCourseData.getTeacherHkid())//
         .build();
   }
 
@@ -34,7 +32,7 @@ public class CourseMapper {
         .courseId(courseEntity.getCourseId())//
         .courseName(courseEntity.getCourseName())//
         .price(courseEntity.getPrice())//
-        .teacherHkid(courseEntity.getTeacherHkid())//
+      //  .teacherHkid(courseEntity.getTeacherHkid())//
         .build();
   }
 

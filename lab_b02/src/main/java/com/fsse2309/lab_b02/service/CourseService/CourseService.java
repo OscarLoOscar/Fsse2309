@@ -18,6 +18,6 @@ public interface CourseService {
 
   void removeStudent(String courseId, String hkid);
 
-  CourseDetailResponseDto getCourses(String courseId);
+  CourseDetailResponseDto getCoursesByCourseId(String courseId);
 
 }

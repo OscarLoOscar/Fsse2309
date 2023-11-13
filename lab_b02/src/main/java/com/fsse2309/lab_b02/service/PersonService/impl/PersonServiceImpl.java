@@ -3,10 +3,10 @@ package com.fsse2309.lab_b02.service.PersonService.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.fsse2309.lab_b02.exception.CreatePersonException;
 import com.fsse2309.lab_b02.data.domainObject.Person.CreatePersonData;
 import com.fsse2309.lab_b02.data.domainObject.Person.CreatedPersonData;
 import com.fsse2309.lab_b02.data.dto.Person.CreatePersonRequestDto;
@@ -37,8 +37,13 @@ public class PersonServiceImpl implements PersonService {
 
     // lv1
     // PersonEntity personEntity = new PersonEntity(createPersonData);
+    if (createPersonData.getFirstName() == null
+        || createPersonData.getHkid() == null
+        || createPersonData.getLastName() == null) {
+      log.info("CreatePersonException : Attribute cannot be null");
+      throw new CreatePersonException();
+    }
     PersonEntity personEntity = PeopleMapper.map(createPersonData);
-    log.info("Service: " + personEntity.getHkid());
 
     Optional<PersonEntity> existingPerson =
         personRepository.findByHkid(personEntity.getHkid());
@@ -101,11 +106,10 @@ public class PersonServiceImpl implements PersonService {
   }
 
   @Override
-  public PersonEntity getPersonEntityByHkid(String hkid) {
+  public Optional<PersonEntity> getPersonEntityByHkid(String hkid) {
     return personRepository.findAll().stream()//
         .filter(e -> e.getHkid().equals(hkid))//
-        .findFirst() //
-        .orElse(null);
+        .findFirst(); //
   }
 
   @Override
@@ -114,11 +118,10 @@ public class PersonServiceImpl implements PersonService {
   }
 
   @Override
-  public PersonEntity getPersonEntityByCourseId(String courseId) {
+  public Optional<PersonEntity> getPersonEntityByCourseId(String courseId) {
     return personRepository.findAll().stream()//
-        .filter(e -> e.getCourseId().equals(courseId))//
-        .findFirst()//
-        .orElse(null);
+        .filter(e -> e.getCourseJoining().equals(courseId))//
+        .findFirst();
   }
 
   @Override

@@ -47,7 +47,7 @@ public class Exercise3 {
   @ResponseStatus(HttpStatus.OK)
   public CourseDetailResponseDto getAllCourses(
       @PathVariable(name = "course_id") String courseId) {
-    return courseService.getCourses(courseId);
+    return courseService.getCoursesByCourseId(courseId);
   }
 
   @PutMapping("/updateCourse")
@@ -56,7 +56,7 @@ public class Exercise3 {
       @RequestBody CreateCourseRequestDto courseRequestDto) {
     return courseService.updateCourse(courseRequestDto);
   }
-
+//ORM n+1 problem, LazyInitializationException
   @DeleteMapping("/deleteCourse/{course_id}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteCourse(@PathVariable String course_id) {

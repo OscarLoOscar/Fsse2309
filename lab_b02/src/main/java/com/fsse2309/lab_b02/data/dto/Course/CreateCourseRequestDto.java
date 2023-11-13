@@ -17,7 +17,7 @@ public class CreateCourseRequestDto {
   @JsonProperty("course_name")
   String courseName;
 
-  double price;
+  Double price;
 
   @JsonProperty("teacher_hkid")
   String teacherHkid;
