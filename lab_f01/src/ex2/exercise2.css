@@ -1,0 +1,59 @@
+* {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(54deg,#0c3866 34%, #4a4cb3);
+}
+
+.login-form-title {
+  width: 50%;
+  /* margin-left: 2%;
+  margin-top: 5%; */
+
+}
+.login-form-title h1,h3{
+  color: white;
+}
+.login-form-body{
+  width: 50%;
+  height: 300px;
+  border: 1px solid black;/* 外框線*/
+  margin-left: 20px;
+  background-color: white;
+  border-radius: 20px; /* 框框方角圓角效果*/
+}
+.container{
+  display: flex;
+    width:100%;
+  padding:16px;
+  /* background-color: white; */
+  margin:0 auto;
+  margin-top:100px;
+  /* border: 1px solid #ddd; */
+  border-radius: 4px;
+}
+
+.container label{
+  color: #0c3866;
+  margin-left: 20px;
+}
+
+.container h2{
+  color: #0c3866;
+  margin-left: 20px;
+}
+
+.container input{
+  width:90%;
+  padding:12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border:1px solid #ccc;
+  /* box-sizing: border-box; */
+  margin-left: 20px;
+}
+
+
+

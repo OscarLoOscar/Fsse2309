@@ -1,0 +1,63 @@
+.keyboard{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.key{
+  width: 50px;
+  height: 150px;
+  background-color: white;
+  border: 1px solid black;
+  margin: -5px;
+  display:inline-block;
+}
+
+.white:hover{
+background-color: #ccc;
+cursor: pointer;
+}
+
+.white:active{
+  background-color: lightgrey;
+  box-shadow: 0 5px #666;
+}
+
+.black{
+  width: 25px;
+  height: 90px;
+  background-color: black;
+  position: relative;
+  top: -30px;
+  margin-left: -12px;
+  z-index: 1;
+  /* border-radius:左上 右上 右下 左下 ; */
+  border-radius: 0px 0px 8px 8px;
+}
+
+.black:hover{
+  background-color: rgb(72,72,72);
+  cursor: pointer;
+  }
+
+  .black:active{
+    background-color: lightgrey;
+    box-shadow: 0 5px black;
+  }
+
+
+.hints{
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.hints-black{
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+color: white;
+}
+

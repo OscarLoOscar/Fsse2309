@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    background-color: aliceblue;
+  }
+  h1{
+    text-align: center;
+  }
+  div{
+    font-size:18px;
+    margin: 20px auto;
+  }
+  p{
+    font-size: 18px;
+    margin: 15px auto;
+    padding: 5px;
+    background-color: antiquewhite;
+  }
+  input,button{
+    font-size: 20px;
+  }
+  .submit-comment{
+    text-align: center;
+  }
+  .post{
+    text-align: center;
+    padding: 0px;
+  }
+  .mine{
+    background-color: aqua;
+  }
+  .wrapper{
+    width: 500px;
+    border: olivedrab 2px solid;
+    background-color: azure;
+    padding: 0px;
+  }
+  .nameDiv{
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+    position: left;
+  }
+  .name{
+    position: relative;
+    font-size: 12px;
+    left:-45px;
+    bottom: 5px;
+  }
+  .profile-img{
+    border-radius: 50%;
+    width:50px;
+  }
+  .description{
+    background-color: antiquewhite;
+    margin:0;
+    padding: 20px 10px;
+    text-align: left;
+  }
+  #commentCountDiv{
+    text-align: right;
+    padding-right: 23px;
+    font-size: 18px;
+  }
+</style>
+<body>
+  <h1> JavaScript</h1>
+  <div class="post">
+    <div class="nameDiv">
+<img class="profile-img" src="/JavaScript/pic001.png"/>
+<span class="name">ABC</span>
+<span class="time">TESTING</span>
+    </div>
+
+    <img src="/JavaScript/pic001.png" width="500px" alt="JS"/>
+    <div class="description">description testing AAA<br/>description testing BBB</div>
+
+  </div>
+
+  <div id="commentCountDiv"><span id="commentCountDiv">3</span>個comment</div>
+
+<div class="comment">
+<p> A 1 </p>
+<p> B 2 </p>
+<p> C 3 </p>
+</div>
+<div class="submit-comment">
+  <input type="text" name="please input" id="comment">
+  <button>input</button>
+</div>
+</body>
+</html>
