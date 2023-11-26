@@ -2,28 +2,28 @@
   font-family: "Nerko One", cursive;
   font-family: "Roboto Mono", monospace;
 }
-
+/**  將全局的所有元素（*通配符）的字體設定為"Nerko One"（手寫風格字體）和"Roboto Mono"（等寬字體）。*/
 .title {
 display: flex;
 justify-content: center;
 }
-
+/* 對具有.title類別的元素應用樣式，使其使用Flex布局，並在水平方向上居中顯示。*/
 *,
 *::after,
 *::before {
   box-sizing: border-box;
 }
-
+/*將所有元素及其偽元素的box-sizing屬性設置為border-box，這使得元素的寬度和高度包括內邊距和邊框，而不僅僅是內容。*/
 :root {
   --cell-size: 100px;
   --mark-size: calc(var(--cell-size) * 0.9);
 }
-
+/*定義CSS變量，--cell-size被設置為100px，--mark-size被設置為--cell-size的90％。*/
 body {
   margin: 0;
   background-color: white;
 }
-
+/*將整個頁面的邊距設置為零，並將背景顏色設置為白色。*/
 #text {
   color: #884bc9;
   align-items: center;
@@ -34,7 +34,7 @@ body {
   align-content: center;
   justify-items: center;
 }
-
+/*對具有#text ID的元素應用樣式，設置文字顏色、對齊、寬度、高度，以及使用Grid布局居中顯示。*/
 .board {
   padding-top: 10%;
   width: 100vw;
@@ -46,7 +46,7 @@ body {
   align-items: center;
   grid-template-columns: repeat(3, auto);
 }
-
+/*對具有.board類別的元素應用樣式，設置其內容的填充、寬度、高度，以及使用Grid布局居中顯示*/
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
@@ -57,38 +57,40 @@ body {
   position: relative;
   cursor: pointer;
 }
-
+/*對具有.cell類別的元素應用樣式，包括寬度、高度、邊框等，並使用Flex布局居中顯示。*/
 .cell:first-child,
 .cell:nth-child(2),
 .cell:nth-child(3) {
   border-top: none;
 }
+/*選擇第一個、第二個和第三個.cell元素，將它們的上邊框設置為無。*/
 
 .cell:nth-child(3n + 1) {
   border-left: none;
 }
-
+/*每三個元素中的第一個.cell，將其左邊框設置為無。*/
 .cell:nth-child(3n + 3) {
   border-right: none;
 }
+/*每三個元素中的第三個.cell，將其右邊框設置為無。*/
 
 .cell:last-child,
 .cell:nth-child(8),
 .cell:nth-child(7) {
   border-bottom: none;
 }
-
+/*選擇最後一個、第八個和第七個.cell元素，將它們的下邊框設置為無。*/
 .cell.x,
 .cell.circle {
   cursor: not-allowed;
 }
-
+/*對帶有.x和.circle類別的.cell元素應用樣式，將鼠標樣式設置為不允許（禁止操作）。*/
 .cell.x::before,
 .cell.x::after,
 .cell.circle::before {
   background-color: purple;
 }
-
+/* 對帶有.x和.circle類別的.cell元素及其伪元素應用樣式，將背景顏色設置為紫色。*/
 .board.x .cell:not(.x):not(.circle):hover::before,
 .board.x .cell:not(.x):not(.circle):hover::after,
 .board.circle .cell:not(.x):not(.circle):hover::before {
@@ -109,11 +111,12 @@ body {
 .board.x .cell:not(.x):not(.circle):hover::before {
   transform: rotate(45deg);
 }
-
+/*對帶有.x類別的.cell元素及其伪元素，以及.board.x下不是.x或.circle類別的.cell元素的應用樣式，使它們的伪元素以45度旋轉。*/
 .cell.x::after,
 .board.x .cell:not(.x):not(.circle):hover::after {
   transform: rotate(-45deg);
 }
+/*對帶有.x類別的.cell元素及其伪元素，以及.board.x下不是.x或.circle類別的.cell元素的應用樣式，使它們的伪元素以-45度旋轉。*/
 
 .cell.circle::before,
 .cell.circle::after,
@@ -123,20 +126,21 @@ body {
   position: absolute;
   border-radius: 50%;
 }
+/*對帶有.circle類別的.cell元素及其伪元素，以及.board.circle下不是.x或.circle類別的.cell元素的應用樣式，創建一個帶有50%邊框半徑的伪元素。*/
 
 .cell.circle::before,
 .board.circle .cell:not(.x):not(.circle):hover::before {
   width: var(--mark-size);
   height: var(--mark-size);
 }
-
+/*對帶有.circle類別的.cell元素及其伪元素，以及.board.circle下不是.x或.circle類別的.cell元素的應用樣式，將伪元素的寬度和高度設置為--mark-size。*/
 .cell.circle::after,
 .board.circle .cell:not(.x):not(.circle):hover::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
   background-color: white;
 }
-
+/*對帶有.circle類別的.cell元素及其伪元素，以及.board.circle下不是.x或.circle類別的.cell元素的應用樣式，將伪元素的寬度和高度設置為--mark-size的70%，背景顏色設置為白色。*/
 .winning-message {
   display: none;
   position: fixed;
@@ -151,7 +155,7 @@ body {
   font-size: 5rem;
   flex-direction: column;
 }
-
+/*對具有.winning-message類別的元素應用樣式，設置其顯示方式、位置、背景顏色、對齊方式、文字顏色等。*/
 .winning-message button {
   font-size: 3rem;
   background-color: white;
