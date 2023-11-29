@@ -101,6 +101,7 @@ width: 80vw;
 justify-content: center;
 }
 
+/*Responsive website*/
 @media only screen and (max-width: 800px){
   #login-container{
     flex-direction: column;
