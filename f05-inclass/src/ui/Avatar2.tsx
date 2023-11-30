@@ -4,7 +4,7 @@ type Props = {
     name: string,
     imageId: string
   },
-  size: number
+  size?: number//加問號變optional
 }
 //Approach 1 
 // export default function Avatar2(props: Props) { //收一個props ，type係Props
@@ -22,7 +22,7 @@ type Props = {
 // }
 
 //Approach 2 
-export default function Avatar2({ person, size }: Props) { //Destructuring -> 拆開object用 ，final type係Props
+export default function Avatar2({ person, size =100}: Props) { //Destructuring -> 拆開object用 ，final type係Props,can make default value
   return (
     <>
       <img

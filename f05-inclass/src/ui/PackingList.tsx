@@ -1,4 +1,4 @@
-import Item from "./item";
+import Item from "./item1";
 
 export default function PackingList() {
   return (
