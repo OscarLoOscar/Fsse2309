@@ -15,7 +15,7 @@ export default class ForecastTableRow extends React.Component<Props, State> {
     super(props);
 
   }
-  render() {
+  render() { // class component 先要render()
     return (
       <tr>
         <td>{moment.unix(this.props.item.dt).format("YYYY-MM-DD")}</td>

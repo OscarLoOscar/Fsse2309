@@ -1,0 +1,27 @@
+* {
+  background-color: #283437;
+}
+#title-location {
+  color: #B6C4C8;
+  font-size: 36px;
+}
+
+#btn-refresh {
+  width: 60px;
+  height: 60px;
+  border: 4px white solid;
+  border-radius: 8px;
+  background-color: grey;
+  background-image: url("../img/loading.png");
+  /*圖片置中*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 0.5s;
+}
+
+#btn-refresh:hover {
+  border-radius: 30px;
+  transform: rotate(-180deg);
+  cursor: pointer;
+}
