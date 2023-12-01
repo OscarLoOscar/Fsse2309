@@ -1,20 +1,19 @@
 import axios from "axios";
 import { ForecastData } from "../data/ForecastData";
+import * as ApiConfig from "./ApiConfig";
 
+const apiKey = ApiConfig.apiKey;
 const cityId = "7533612";
-const apiKey = "4f075da55c57a429b3093993c2053c4b";
 const units = "metric";
 
-const apiUrl =`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=${units}&appid=${apiKey}`;
+const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=${units}&appid=${apiKey}`;
 
-export default function WeatherApi() {
-  const fetchWeatherData = (getResponse : (data :ForecastData)=>void )=>{
-    axios.get(apiUrl)
-    .then((response)=>{ //,then 入面要callback function
-      getResponse(response.data as ForecastData);
+export function fetchForecastApi(onLoadForecastData: (data: ForecastData) => void) {
+  axios.get<ForecastData>(apiUrl)
+    .then((response) => { //,then 入面要callback function , call完api有個object拎番黎，要放返係page index 既state
+      onLoadForecastData(response.data as ForecastData);
     })
-    .catch((error)=>{
+    .catch((error) => {
       console.error(error)
     });
-  };
-}
+};

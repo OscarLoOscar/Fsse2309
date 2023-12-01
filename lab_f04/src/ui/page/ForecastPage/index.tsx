@@ -2,9 +2,11 @@ import React from "react"
 import Header from "../../component/Header";
 import { Container } from "react-bootstrap";
 import ForecastTable from "../../component/ForecastTable";
-import mockData from "./response.json"
-import { ForecastDataList } from "../../../data/ForecastData";
+// import mockData from "./response.json"
+import { ForecastData } from "../../../data/ForecastData";
 import moment from "moment/moment";
+import TableLoadingSpinner from "../../component/TableLoadingSpinner";
+import { fetchForecastApi } from "../../../api/ForecastDataApi";
 // import { WeatherData } from './data/WeatherData';
 
 //我地已經install左bootstrap，已經有晒人地既所有css，唔洗自己啲set，要用既時候係class加番名，已經用到人地既propertys
@@ -18,7 +20,7 @@ type Props = {
 
 //step 2
 type State = {
-  forecastData: undefined | ForecastDataList[],
+  forecastData: undefined | ForecastData,
   updatedTime: undefined | string
   //做完api clss，留黎呢度，諗lifeCycle
 }
@@ -33,22 +35,34 @@ export default class ForcastPage extends React.Component<Props, State>{
       updatedTime: undefined
     }
   }
+
+  //ForecastDataApi
+  onLoadForecastData = (data: ForecastData) => {
+    this.setState({
+      forecastData: data,
+      updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
+    })
+  }
   //lifeCycle
   componentDidMount(): void {
-    this.setState({
-      forecastData: mockData.list,
-      updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
-    });
+    setTimeout(() => { //table 想出loading spinner ，set timr
+      // this.setState({
+      //   forecastData: mockData.list,
+      //   updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
+      // });
+      fetchForecastApi(this.onLoadForecastData);
+    }, 2000)
   }
 
   //step 4 
   render() {
     return (
       <Container>
-        <Header updateTime={this.state.updatedTime}/>
+        <Header updateTime={this.state.updatedTime} />
         {
-          this.state.forecastData &&
-          <ForecastTable forecastData={this.state.forecastData} />
+          this.state.forecastData //&&
+            ? <ForecastTable forecastData={this.state.forecastData} />
+            : <TableLoadingSpinner />
         }
         {/* Type 'ForecastData | undefined' is not assignable to type 'ForecastData'.
   Type 'undefined' is not assignable to type 'ForecastData'. 

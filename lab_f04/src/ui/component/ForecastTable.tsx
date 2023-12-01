@@ -1,10 +1,10 @@
 import React from "react"
 import { Table } from "react-bootstrap";
 import ForecastTableRow from "./ForecastTableRow";
-import { ForecastDataList } from "../../data/ForecastData";
+import { ForecastData } from "../../data/ForecastData";
 
 type Props = {
-  forecastData: ForecastDataList[];
+  forecastData: ForecastData ;
 }
 type State = {
 
@@ -28,8 +28,8 @@ export default class ForecastTable extends React.Component<Props, State>{
         <tbody>
           {/* 一個table一個component，每條row一個component */}
           {
-            this.props.forecastData.map((forecastDataList) => (
-              <ForecastTableRow key={forecastDataList.dt} data={forecastDataList}/>
+            this.props.forecastData.list.map((forecastDataList) => (
+              <ForecastTableRow item={forecastDataList} />
             ))
           }
         </tbody>

@@ -3,14 +3,14 @@ export interface ForecastData{
 }
 
 export interface ForecastDataList {
-  dt: number
-  main: ForecastDataListMain
+  dt: number,
+  main: ForecastDataListMain,
   weather: ForecastDataListWeather[]
 }
 
 export interface ForecastDataListMain {
-  temp_min: number
-  temp_max: number
+  temp_min: number,
+  temp_max: number,
   humidity: number
 }
 
