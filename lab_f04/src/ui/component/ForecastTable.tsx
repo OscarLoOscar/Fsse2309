@@ -29,7 +29,7 @@ export default class ForecastTable extends React.Component<Props, State>{
           {/* 一個table一個component，每條row一個component */}
           {
             this.props.forecastData.list.map((forecastDataList) => (
-              <ForecastTableRow item={forecastDataList} />
+              <ForecastTableRow item={forecastDataList} /> //xxx={} , xxx要對番interface入面props名
             ))
           }
         </tbody>

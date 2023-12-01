@@ -6,8 +6,7 @@ import ForecastTable from "../../component/ForecastTable";
 import { ForecastData } from "../../../data/ForecastData";
 import moment from "moment/moment";
 import TableLoadingSpinner from "../../component/TableLoadingSpinner";
-import { fetchForecastApi } from "../../../api/ForecastDataApi";
-// import { WeatherData } from './data/WeatherData';
+import * as ForecastDataApi from "../../../api/ForecastDataApi";
 
 //我地已經install左bootstrap，已經有晒人地既所有css，唔洗自己啲set，要用既時候係class加番名，已經用到人地既propertys
 //小心大細階，細階-> HTML , 大階先係React bootstrap component
@@ -43,22 +42,33 @@ export default class ForcastPage extends React.Component<Props, State>{
       updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
     })
   }
+
+  fetchForecastData = () => {
+    this.setState({ //set 番clickrefresh制去返loading page，UI問題
+      forecastData: undefined,
+      updatedTime: undefined
+    })
+    setTimeout(() => {
+      ForecastDataApi.fetchForecastApi(this.onLoadForecastData);
+    }, 2000)
+  }
+
   //lifeCycle
   componentDidMount(): void {
-    setTimeout(() => { //table 想出loading spinner ，set timr
-      // this.setState({
-      //   forecastData: mockData.list,
-      //   updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
-      // });
-      fetchForecastApi(this.onLoadForecastData);
-    }, 2000)
+    // setTimeout(() => { //table 想出loading spinner ，set timr
+    // this.setState({
+    //   forecastData: mockData.list,
+    //   updatedTime: moment().format("YYYY-MM-DD HH:mm:ss")
+    // });
+    this.fetchForecastData();
+    // }, 2000)
   }
 
   //step 4 
   render() {
     return (
       <Container>
-        <Header updateTime={this.state.updatedTime} />
+        <Header updateTime={this.state.updatedTime} fetchForecastData={this.fetchForecastData} />
         {
           this.state.forecastData //&&
             ? <ForecastTable forecastData={this.state.forecastData} />

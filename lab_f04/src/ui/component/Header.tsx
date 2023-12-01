@@ -1,9 +1,10 @@
 import React from "react"
 import "./Header.css";
+import * as ForecastDataApi from "../../../src/api/ForecastDataApi";
 
 type Props = {
   updateTime: string | undefined, // undefined - >未callAPI
-  // fetchWeatherData: () => void
+  fetchForecastData: () => void
 }
 //無state ，其實用function cpmponent都得
 export default class Header extends React.Component<Props>{
@@ -36,7 +37,7 @@ export default class Header extends React.Component<Props>{
               } */}
               {this.renderUpdatedTime()}
             </div>
-            <div id="btn-refresh">
+            <div id="btn-refresh" onClick={this.props.fetchForecastData}>
 
             </div>
           </div>
