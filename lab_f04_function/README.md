@@ -1,14 +1,14 @@
 # Getting Started with Create React App
 
-npm install react-bootstrap bootstrap
+`npx create-react-app lab_f04 --template typescript`
 
-npm install react@latest react-dom@latest
+`npm install react-bootstrap bootstrap`
 
-npm install axios
+`npm install react@latest react-dom@latest`
 
- npm install moment --save
+`npm install axios`
 
- npm install react-bootstrap bootstrap
+ `npm install moment --save`
 
  ### Open src/index.js, add the following import statement in the file head:
 import 'bootstrap/dist/css/bootstrap.min.css';

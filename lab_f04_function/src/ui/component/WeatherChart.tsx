@@ -16,8 +16,8 @@ const WeatherChart: React.FC<Props> = ({ data }) => {
       data={data}
       margin={{
         top: 5,
-        right: 30,
-        left: 20,
+        right: 20,
+        left: 0,
         bottom: 5,
       }}
     >
