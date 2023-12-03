@@ -1,4 +1,4 @@
-import { AppBar, CssBaseline, Slide, Toolbar, Typography, useScrollTrigger } from "@mui/material"; import "./Header.css"
+import { AppBar, CssBaseline, Slide, Toolbar, Typography, useScrollTrigger } from "@mui/material"; 
 import React from "react";
 
 interface Props {
@@ -25,9 +25,6 @@ const Header: React.FC<Props> = (props) => {
     );
   }
   return (
-    // <div>
-    //   <h1>Parking Vacancy</h1>
-    // </div>
     <>
       <CssBaseline />
       <HideOnScroll {...props}>

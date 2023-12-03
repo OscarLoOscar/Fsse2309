@@ -38,9 +38,9 @@ export default function SearchBox(props: Props) {
           <MenuItem value={"motorCycle"}>Motor Cycle</MenuItem>
           <MenuItem value={"coach"}>Coach</MenuItem>
         </Select>
-        <Button variant="contained">
+        {/* <Button variant="contained">
           Search
-        </Button>
+        </Button> */}
       </FormControl >
     </form>
   );
