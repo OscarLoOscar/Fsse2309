@@ -1,51 +1,47 @@
-import "./SearchBox.css"
-import React from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from "react-bootstrap/Row";
+import { FormControl, MenuItem, Select, InputLabel, TextField, Button } from "@mui/material";
+import { VehicleType } from "../../data/InfoVacancyData";
 
 type Props = {
-
+  districtFilter: string,
+  setDistrictFilter: React.Dispatch<React.SetStateAction<string>>,
+  vehicleTypeFilter: VehicleType,
+  setVehicleTypeFilter: React.Dispatch<React.SetStateAction<VehicleType>>
 }
 
-const SearchBox: React.FC<Props> = (props) => {
+export default function SearchBox(props: Props) {
   return (
-    <div className="box">
-      <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
-          <Form.Label column sm="2">
-            District
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="e.g.Kwun Tong" />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
-          <Form.Label column sm="2">Vehicle Type</Form.Label>
-          <Col sm="10">
-            <Form.Select>
-              <option value="1"> Private Car</option>
-              <option value="2"> LGV</option>
-              <option value="3"> HGV</option>
-              <option value="4"> Coach</option>
-              <option value="5"> Motorcycle</option>
-            </Form.Select>
-          </Col>
-        </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicCheckbox">
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit">
+    <form style={{
+      marginTop: "16px",
+      padding: "24px",
+      border: "1px solid black",
+      borderRadius: "4px",
+    }}>
+      <TextField id="outlined-basic"
+        label="District"
+        variant="outlined"
+        value={props.districtFilter}
+        onChange={(e) => props.setDistrictFilter(e.currentTarget.value)}
+        fullWidth
+      />
+      <FormControl style={{ marginTop: "16px" }}>
+        <InputLabel>Vechicle Type</InputLabel>
+        <Select
+          value={props.vehicleTypeFilter}
+          label="Vehicle Type"
+          onChange={(event) => {
+            props.setVehicleTypeFilter(event.target.value as VehicleType)
+          }}
+        >
+          <MenuItem value={"privateCar"}>Private Car</MenuItem>
+          <MenuItem value={"LGV"}>LGV</MenuItem>
+          <MenuItem value={"HGV"}>HGV</MenuItem>
+          <MenuItem value={"motorCycle"}>Motor Cycle</MenuItem>
+          <MenuItem value={"coach"}>Coach</MenuItem>
+        </Select>
+        <Button variant="contained">
           Search
         </Button>
-      </Form>
-    </div>
+      </FormControl >
+    </form>
   );
 }
-
-export default SearchBox;

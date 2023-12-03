@@ -2,7 +2,7 @@ import Header from "../component/Header";
 import { Container } from "react-bootstrap";
 import SearchBox from "../component/SearchBox";
 import CarparkResults from "../component/ CarparkResults";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { DataInfo } from "../../data/DataInfo";
 import { InfoVacancyData, VehicleType } from "../../data/InfoVacancyData";
 import { mergeToVacancyInfo } from "../../utils/DataUtil"
@@ -27,8 +27,12 @@ export default function LandingPage() {
 
   return (
     <Container>
-      <Header />
-      <SearchBox />
+      <Header children={undefined} />
+      <SearchBox districtFilter={""} setDistrictFilter={function (value: SetStateAction<string>): void {
+        throw new Error("Function not implemented.");
+      }} vehicleTypeFilter={"privateCar"} setVehicleTypeFilter={function (value: SetStateAction<VehicleType>): void {
+        throw new Error("Function not implemented.");
+      }} />
       <CarparkResults data={data} districtFilter={districtFilter} vehicleFilter={vehicleFilter} />
     </Container>
 
