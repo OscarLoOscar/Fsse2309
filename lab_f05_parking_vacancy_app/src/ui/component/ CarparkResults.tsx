@@ -29,14 +29,20 @@ const CarparkResults: React.FC<Props> = (props) => {
     if (props.data) {
       if (props.districtFilter === "") {
         return props.data.map(data => {
-          return <CarparkResultsRow key={data.park_Id} data={data} vehicleType={props.vehicleFilter} />
+          return <CarparkResultsRow
+            key={data.park_Id}
+            data={data}
+            vehicleType={props.vehicleFilter} />
         });
       } else {
         const filteredData = props.data.filter((data) =>
           data.district?.toLowerCase().includes(props.districtFilter.toLowerCase())
         );
         return filteredData.map((data) => (
-          <CarparkResultsRow key={data.park_Id} data={data} vehicleType={props.vehicleFilter} />
+          <CarparkResultsRow
+            key={data.park_Id}
+            data={data}
+            vehicleType={props.vehicleFilter} />
         ));
       }
     } else {
@@ -58,7 +64,7 @@ const CarparkResults: React.FC<Props> = (props) => {
         </thead>
         <tbody>
           {
-          renderResultTableRow()
+            renderResultTableRow()
           }
         </tbody>
       </Table>

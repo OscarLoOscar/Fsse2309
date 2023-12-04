@@ -1,8 +1,11 @@
 # Getting Started with Create React App
 
-`npx create-react-app lab_f04 --template typescript`
+Create App:
+`npx create-react-app (project name) --template typescript`
 
-`npm install react-bootstrap bootstrap`
+`npm install @mui/base`
+
+`npm install @mui/material @emotion/react @emotion/styled`
 
 `npm install react@latest react-dom@latest`
 

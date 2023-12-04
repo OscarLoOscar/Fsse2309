@@ -14,7 +14,8 @@ const CarparkResultsRow: React.FC<Props> = (props) => {
           {props.data.imageUrl &&
             <img
               src={props.data.imageUrl}
-              height={100}
+              // height={100}
+              width={500}
               
             />
           }

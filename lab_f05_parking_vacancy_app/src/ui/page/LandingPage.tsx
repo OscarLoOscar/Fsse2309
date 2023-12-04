@@ -1,9 +1,8 @@
 import Header from "../component/Header";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import SearchBox from "../component/SearchBox";
 import CarparkResults from "../component/ CarparkResults";
-import React, { SetStateAction, useEffect, useState } from "react";
-import { DataInfo } from "../../data/DataInfo";
+import { useEffect, useState } from "react";
 import { InfoVacancyData, VehicleType } from "../../data/InfoVacancyData";
 import { mergeToVacancyInfo } from "../../utils/DataUtil"
 import * as CarParkApi from "../../api/CarParkApi"
@@ -30,13 +29,18 @@ export default function LandingPage() {
     // <Header children={undefined} />
     <Container>
       <Header children={undefined} />
-      <SearchBox
-        districtFilter={districtFilter}
-        setDistrictFilter={setDistrictFilter}
-        vehicleTypeFilter={vehicleFilter}
-        setVehicleTypeFilter={setVehicleFilter}
-      />
-      <CarparkResults data={data} districtFilter={districtFilter} vehicleFilter={vehicleFilter} />
+      <Row>
+        <Col>
+          <SearchBox
+            districtFilter={districtFilter}
+            setDistrictFilter={setDistrictFilter}
+            vehicleTypeFilter={vehicleFilter}
+            setVehicleTypeFilter={setVehicleFilter}
+          />
+       
+          <CarparkResults data={data} districtFilter={districtFilter} vehicleFilter={vehicleFilter} />
+        </Col>
+      </Row>
     </Container>
     // </React.Fragment>
   );
