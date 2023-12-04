@@ -15,14 +15,14 @@ const CarparkResultsRow: React.FC<Props> = (props) => {
             <img
               src={props.data.imageUrl}
               // height={100}
-              width={500}
+              width={300}
               
             />
           }
         </TableCell>
         <TableCell align="left">{props.data.name}</TableCell>
         <TableCell align="left">{props.data.displayAddress}</TableCell>
-        <TableCell align="left">{props.data[props.vehicleType]}</TableCell>
+        <TableCell align="center" >{props.data[props.vehicleType]}</TableCell>
         <TableCell align="left">
           <Button variant="contained" color="secondary" onClick={() => {
             window.open(`https://maps.google.com?q=${props.data.latitude},${props.data.longitude}`, '_blank')?.focus();

@@ -23,7 +23,7 @@ export default function SearchBox(props: Props) {
         onChange={(e) => props.setDistrictFilter(e.currentTarget.value)}
         fullWidth
       />
-      <FormControl style={{ marginTop: "16px" }}>
+      <FormControl style={{ minWidth: 200 , marginTop: "16px" }} >
         <InputLabel>Vechicle Type</InputLabel>
         <Select
           value={props.vehicleTypeFilter}
