@@ -26,7 +26,7 @@ const CarparkResults: React.FC<Props> = (props) => {
   };
 
   const renderResultTableRow = () => {
-    if (props.data) {
+    if (props.data && props.data.length > 0) {
       if (props.districtFilter === "") {
         return props.data.map(data => {
           return <CarparkResultsRow
