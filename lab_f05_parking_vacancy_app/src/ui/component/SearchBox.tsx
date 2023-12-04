@@ -3,10 +3,14 @@ import { VehicleType } from "../../data/InfoVacancyData";
 
 type Props = {
   districtFilter: string,
-  setDistrictFilter: React.Dispatch<React.SetStateAction<string>>,
+   setDistrictFilter: React.Dispatch<React.SetStateAction<string>>,
   vehicleTypeFilter: VehicleType,
   setVehicleTypeFilter: React.Dispatch<React.SetStateAction<VehicleType>>
 }
+// type State = {
+//   setDistrictFilter: React.Dispatch<React.SetStateAction<string>>,
+
+// }
 
 export default function SearchBox(props: Props) {
   return (
@@ -16,14 +20,15 @@ export default function SearchBox(props: Props) {
       border: "1px solid black",
       borderRadius: "4px",
     }}>
-      <TextField id="outlined-basic"
+      <TextField
+        id="outlined-basic"
         label="District"
         variant="outlined"
         value={props.districtFilter}
         onChange={(e) => props.setDistrictFilter(e.currentTarget.value)}
         fullWidth
       />
-      <FormControl style={{ minWidth: 200 , marginTop: "16px" }} >
+      <FormControl style={{ minWidth: 200, marginTop: "16px" }} >
         <InputLabel>Vechicle Type</InputLabel>
         <Select
           value={props.vehicleTypeFilter}
@@ -38,9 +43,10 @@ export default function SearchBox(props: Props) {
           <MenuItem value={"motorCycle"}>Motor Cycle</MenuItem>
           <MenuItem value={"coach"}>Coach</MenuItem>
         </Select>
-        {/* <Button variant="contained">
+        <br/>
+        <Button variant="contained">
           Search
-        </Button> */}
+        </Button>
       </FormControl >
     </form>
   );

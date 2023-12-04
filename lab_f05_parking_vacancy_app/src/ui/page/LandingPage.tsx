@@ -37,7 +37,7 @@ export default function LandingPage() {
             vehicleTypeFilter={vehicleFilter}
             setVehicleTypeFilter={setVehicleFilter}
           />
-       
+
           <CarparkResults data={data} districtFilter={districtFilter} vehicleFilter={vehicleFilter} />
         </Col>
       </Row>
